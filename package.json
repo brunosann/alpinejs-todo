@@ -1,0 +1,20 @@
+{
+  "name": "alpine-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx mix",
+    "prod": "npx mix --production",
+    "watch": "npx mix watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "alpinejs": "^2.8.2",
+    "laravel-mix": "^6.0.19",
+    "postcss": "^8.1.14",
+    "tailwindcss": "^2.1.2"
+  }
+}

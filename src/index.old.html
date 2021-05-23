@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <title>Alpine Js</title>
+    <style>
+      [x-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-200 h-screen flex flex-col justify-center items-center">
+    <h1 class="text-4xl">Clientes</h1>
+
+    <form x-data="{name: '', tel: ''}" class="my-2 w-96 mx-auto flex flex-col">
+      <input
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Nome do cliente"
+        class="rounded-md focus:outline-none py-1 px-2 mb-2"
+        x-model="name"
+      />
+      <input
+        type="text"
+        name="tel"
+        id="tel"
+        placeholder="Telefone do cliente"
+        class="rounded-md focus:outline-none py-1 px-2 mb-2"
+        x-model="tel"
+      />
+
+      <button
+        class="bg-blue-400 rounded-md px-4 text-white p-1 focus:outline-none"
+        type="button"
+        x-on:click="$dispatch('form-event', {name, tel})"
+      >
+        Adicionar
+      </button>
+    </form>
+
+    <ul
+      x-data="storage()"
+      x-on:form-event.window="a($event.detail)"
+      class="w-96 mx-auto bg-white p-4"
+    >
+      <template x-for="(item, index) in list" :key="index">
+        <li
+          class="flex justify-between"
+          x-bind:class="{'bg-gray-200':index % 2 !== 0}"
+        >
+          <span x-text="item.name"></span>
+          <span x-text="item.tel"></span>
+        </li>
+      </template>
+    </ul>
+
+    <script>
+      function storage() {
+        return {
+          a: function (b) {
+            console.log(b);
+            this.list.push(b);
+            console.log(name);
+            console.log(tel);
+          },
+          list: [
+            { name: "Bruno", tel: "99658231" },
+            { name: "Denise", tel: "231238923" },
+            { name: "Angela", tel: "132543223" },
+            { name: "Donizete", tel: "23156423" },
+          ],
+        };
+      }
+    </script>
+  </body>
+</html>

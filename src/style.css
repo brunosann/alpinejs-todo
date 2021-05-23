@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+  display: none;
+}
+
+.btn-action {
+  @apply text-white font-bold py-1 px-3 rounded text-xs bg-green-400 hover:bg-green-300 focus:outline-none;
+}
