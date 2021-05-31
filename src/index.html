@@ -5,18 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./app.css" />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
     <title>Todo List Alpine</title>
   </head>
   <body class="bg-gray-300">
-    <section x-on:submit.prevent="add()" class="container mx-auto bg-white" x-data="todo()">
+    <section
+      x-on:submit.prevent="add()"
+      class="container mx-auto bg-white"
+      x-data="todo()"
+    >
       <h1 class="text-4xl text-center">Todo List</h1>
       <form class="flex justify-center my-2">
-        <input x-model="formTask" x-bind:class="{'border-indigo-700':taskValid, 'border-red-500':!taskValid}" class="border-2 px-2 py-1 rounded-l-md focus:outline-none" type="text" id="task" placeholder="Digite a tarefa">
-        <button class="bg-indigo-700 px-2 rounded-r-md text-white focus:outline-none hover:bg-indigo-500" type="submit">Adicionar</button>
+        <input
+          x-model="formTask"
+          x-bind:class="{'border-indigo-700':taskValid, 'border-red-500':!taskValid}"
+          class="border-2 px-2 py-1 rounded-l-md focus:outline-none"
+          type="text"
+          id="task"
+          placeholder="Digite a tarefa"
+        />
+        <button
+          class="
+            bg-indigo-700
+            px-2
+            rounded-r-md
+            text-white
+            focus:outline-none
+            hover:bg-indigo-500
+          "
+          type="submit"
+        >
+          Adicionar
+        </button>
       </form>
-      <p x-show="!taskValid" x-cloak class="text-center mb-2 text-red-600">Tarefa é obrigatório</p>
-      
+      <p x-show="!taskValid" x-cloak class="text-center mb-2 text-red-600">
+        Tarefa é obrigatório
+      </p>
+
       <ul x-show="tasks.length > 0">
         <li class="flex justify-between bg-indigo-600 text-white px-3 py-2">
           <p class="uppercase font-bold">Task</p>
@@ -25,30 +53,182 @@
 
         <template x-for="(task, index) in tasks">
           <li class="flex justify-between px-3 py-2">
-          <p x-bind:class="{ 'line-through' : task.isConcluded }" class="text-gray-500" x-text="task.task"></p>
-          <div>
-            <button x-on:click="conclude(index)" x-show="!task.isConcluded" type="button" class="btn-action">Concluir</button>
-            <button x-on:click=reopen(index) x-show="task.isConcluded" type="button" class="btn-action">Reabrir</button>
-            <button x-on:click="edit(task.task, index, $refs.btnModal)" type="button" class="btn-action">Edit</button>
-            <button x-on:click="deleteTask(index)" type="button" class="btn-action">Deletar</button>
-          </div>
+            <p
+              x-bind:class="{ 'line-through' : task.isConcluded }"
+              class="text-gray-500"
+              x-text="task.task"
+            ></p>
+            <div>
+              <button
+                x-on:click="conclude(index)"
+                x-show="!task.isConcluded"
+                type="button"
+                class="btn-action"
+              >
+                Concluir
+              </button>
+              <button
+                x-on:click="reopen(index)"
+                x-show="task.isConcluded"
+                type="button"
+                class="btn-action"
+              >
+                Reabrir
+              </button>
+              <button
+                x-on:click="edit(task.task, index, $refs.btnModal)"
+                type="button"
+                class="btn-action"
+              >
+                Edit
+              </button>
+              <button
+                x-on:click="deleteTask(index)"
+                type="button"
+                class="btn-action"
+              >
+                Deletar
+              </button>
+            </div>
           </li>
         </template>
       </ul>
 
-      <div x-show="modal" x-spread="transition" x-cloak class="h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
-        <div x-on:click.away="modal = false" class="bg-white rounded shadow-lg w-10/12 md:w-1/3">
+      <div
+        x-show="modal"
+        x-spread="transition"
+        x-cloak
+        class="
+          h-screen
+          w-full
+          fixed
+          left-0
+          top-0
+          flex
+          justify-center
+          items-center
+          bg-black bg-opacity-50
+        "
+      >
+        <div
+          x-on:click.away="modal = false"
+          class="bg-white rounded shadow-lg w-10/12 md:w-1/3"
+        >
           <div class="p-3">
-            <input x-model="formTaskEdit" class="w-full border-indigo-700 border-2 px-2 py-1 rounded-md focus:outline-none" type="text" id="task-edit" placeholder="Digite a tarefa">
+            <input
+              x-model="formTaskEdit"
+              class="
+                w-full
+                border-indigo-700 border-2
+                px-2
+                py-1
+                rounded-md
+                focus:outline-none
+              "
+              type="text"
+              id="task-edit"
+              placeholder="Digite a tarefa"
+            />
           </div>
           <div class="flex justify-end items-center w-100 p-3">
-            <button x-on:click="cancelEdit()" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white mr-1 close-modal">Cancelar</button>
-            <button x-on:click="saveEdit($refs.btnModal)" x-ref="btnModal" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Salvar</button>
+            <button
+              x-on:click="cancelEdit()"
+              class="
+                bg-red-600
+                hover:bg-red-700
+                px-3
+                py-1
+                rounded
+                text-white
+                mr-1
+                close-modal
+              "
+            >
+              Cancelar
+            </button>
+            <button
+              x-on:click="saveEdit($refs.btnModal)"
+              x-ref="btnModal"
+              class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white"
+            >
+              Salvar
+            </button>
           </div>
         </div>
       </div>
-
     </section>
+
+    <form
+      x-data="form()"
+      @submit.prevent="handleSubmit($el)"
+      method="post"
+      class="container mx-auto mt-4 flex flex-col gap-2"
+    >
+      <input
+        x-model="name.value"
+        type="text"
+        required
+        name="name"
+        placeholder="Preencha seu nome"
+      />
+      <span x-show="name.error" class="text-red-400">Preecnha o campo</span>
+      <input
+        class="border-red-500"
+        x-bind:class="{'border' : email.error}"
+        x-on:focusout="validation($event.target)"
+        x-model="email.value"
+        type="email"
+        required
+        data-valid="email"
+        name="email"
+        placeholder="Preencha seu email"
+      />
+      <span
+        x-show="email.error"
+        class="text-red-400"
+        x-text="email.error"
+      ></span>
+      <button class="bg-indigo-500" type="submit">Form</button>
+      <p x-text="name.value"></p>
+      <p x-text="email.value"></p>
+    </form>
+
+    <script>
+      function form() {
+        return {
+          name: {
+            value: "",
+            error: "",
+          },
+          email: {
+            value: "",
+            error: "",
+          },
+          valids: {
+            email: {
+              regexp: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+              msg: "Preencha com email valido",
+            },
+          },
+          validation(el) {
+            const input = el.name;
+            const arrayValid = el.dataset.valid.split(",");
+            arrayValid.map((rule) => {
+              const cleanRule = rule.trim();
+              const check = this.valids[cleanRule].regexp.test(
+                this[input].value
+              );
+              if (!check)
+                return (this[input].error = this.valids[cleanRule].msg);
+              this[input].error = "";
+            });
+          },
+          handleSubmit(el) {
+            el.querySelectorAll('input').forEach(a => console.log(a.name));
+          },
+        };
+      }
+    </script>
 
     <script src="./main.js"></script>
   </body>
