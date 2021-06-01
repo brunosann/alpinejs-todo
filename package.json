@@ -14,7 +14,7 @@
   "devDependencies": {
     "alpinejs": "^2.8.2",
     "laravel-mix": "^6.0.19",
-    "postcss": "^8.1.14",
+    "postcss": "^8.2.10",
     "tailwindcss": "^2.1.2"
   }
 }
